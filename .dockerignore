@@ -1,0 +1,9 @@
+.vs
+.idea
+.git
+.github
+
+**/bin
+**/obj
+
+scripts
