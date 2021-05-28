@@ -1,18 +1,17 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0-focal AS build
 WORKDIR /app
 
+COPY *.sln .
 COPY src/Aimrank.Agones.Cluster.Api/*.csproj ./src/Aimrank.Agones.Cluster.Api/
 COPY src/Aimrank.Agones.Cluster.Core/*.csproj ./src/Aimrank.Agones.Cluster.Core/
 COPY src/Aimrank.Agones.Cluster.Infrastructure/*.csproj ./src/Aimrank.Agones.Cluster.Infrastructure/
 COPY src/Aimrank.Agones.Cluster.Migrator/*.csproj ./src/Aimrank.Agones.Cluster.Migrator/
 
-RUN dotnet restore src/Aimrank.Agones.Cluster.Migrator
-RUN dotnet restore src/Aimrank.Agones.Cluster.Api
+RUN dotnet restore
 
 COPY . .
 
-RUN dotnet publish src/Aimrank.Agones.Cluster.Migrator -c Release -o /app/out
-RUN dotnet publish src/Aimrank.Agones.Cluster.Api -c Release -o /app/out
+RUN dotnet publish -c Release -o /app/out
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /app
