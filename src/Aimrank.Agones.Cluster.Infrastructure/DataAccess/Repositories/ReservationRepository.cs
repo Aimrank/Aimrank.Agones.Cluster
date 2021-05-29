@@ -22,5 +22,8 @@ namespace Aimrank.Agones.Cluster.Infrastructure.DataAccess.Repositories
             .FirstOrDefaultAsync(r => r.Id == id);
 
         public void Add(Reservation reservation) => _context.Add(reservation);
+
+        public Task DeleteExpiredAsync() => _context.Database
+            .ExecuteSqlRawAsync("DELETE FROM cluster.reservations WHERE expires_at <= timezone('utc', now());");
     }
 }

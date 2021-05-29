@@ -1,6 +1,8 @@
 using Aimrank.Agones.Cluster.Infrastructure.DataAccess;
 using Aimrank.Agones.Cluster.Infrastructure.Kubernetes;
 using Aimrank.Agones.Cluster.Infrastructure.Processing;
+using Aimrank.Agones.Cluster.Infrastructure.Quartz;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
@@ -16,8 +18,16 @@ namespace Aimrank.Agones.Cluster.Infrastructure
             services.AddDataAccess(configuration);
             services.AddProcessing();
             services.AddKubernetes(configuration);
+            services.AddQuartz();
             
             return services;
+        }
+
+        public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder builder)
+        {
+            builder.UseQuartz();
+            
+            return builder;
         }
     }
 }

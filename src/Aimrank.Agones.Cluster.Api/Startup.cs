@@ -28,6 +28,7 @@ namespace Aimrank.Agones.Cluster.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseInfrastructure();
             app.UseExceptionsHandler();
             app.UseSwaggerDocumentation();
             app.UseRouting();
