@@ -9,5 +9,6 @@ namespace Aimrank.Agones.Cluster.Core.Repositories
         Task<int> GetActiveCountAsync();
         Task<Reservation> GetAsync(Guid id);
         void Add(Reservation reservation);
+        Task DeleteExpiredAsync();
     }
 }
